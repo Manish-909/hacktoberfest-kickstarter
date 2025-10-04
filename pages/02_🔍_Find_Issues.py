@@ -44,11 +44,11 @@ def main():
     with col1:
         search_type = st.selectbox(
             "Search Strategy:",
-            ["AI Recommended", "Skills Based", "Interest Based", "Difficulty Based"]
+            ["Skills Based", "AI Recommended", "Interest Based", "Difficulty Based"]
         )
     
     with col2:
-        max_issues = st.slider("Max Issues:", 5, 50, 20)
+        max_issues = st.slider("Max Issues:", 5, 50, 5)
     
     with col3:
         if st.button("🔍 Find Issues", use_container_width=True):
