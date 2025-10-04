@@ -3,10 +3,18 @@ from utils.styling import apply_custom_css
 from services.github_service import GitHubService
 from services.ai_service import AIService
 import pandas as pd
-import plotly.express as px
+import os
 
 # Apply styling
 apply_custom_css()
+
+# Initialize session state for this page
+if 'profile' not in st.session_state:
+    st.session_state.profile = None
+if 'issues' not in st.session_state:
+    st.session_state.issues = []
+if 'github_token' not in st.session_state:
+    st.session_state.github_token = os.getenv('GITHUB_TOKEN', '')
 
 st.title("🔍 Find Perfect Issues")
 
@@ -14,7 +22,7 @@ def main():
     if not st.session_state.profile:
         st.warning("⚠️ Please set up your profile first to get personalized recommendations.")
         if st.button("🏠 Go to Profile Setup"):
-            st.switch_page("pages/01_🏠_Profile_Setup.py")
+            st.info("ℹ️ Please navigate to the Profile Setup page from the sidebar or main menu.")
         return
     
     # Display user profile summary
@@ -26,7 +34,7 @@ def main():
         st.write(f"**Interests:** {len(profile['interests'])}")
         
         if st.button("✏️ Edit Profile"):
-            st.switch_page("pages/01_🏠_Profile_Setup.py")
+            st.info("ℹ️ Please navigate to the Profile Setup page to edit your profile.")
     
     # Search controls
     st.markdown("### 🎯 Issue Discovery")
@@ -214,12 +222,19 @@ def display_issue_card(issue, index):
         col_btn1, col_btn2, col_btn3 = st.columns(3)
         
         with col_btn1:
-            st.link_button("🔗 View Issue", issue['url'], use_container_width=True)
+            # Use styled HTML button for better appearance and compatibility
+            st.markdown(
+                f'<a href="{issue["url"]}" target="_blank" style="text-decoration: none;">' 
+                f'<button style="width: 100%; padding: 0.5rem; background-color: #0066cc; color: white; '
+                f'border: none; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">' 
+                f'🔗 View Issue</button></a>', 
+                unsafe_allow_html=True
+            )
         
         with col_btn2:
             if st.button(f"📖 How to Contribute", key=f"guide_{index}", use_container_width=True):
                 st.session_state.selected_issue = issue
-                st.switch_page("pages/03_📖_Contribution_Guide.py")
+                st.success("Issue selected! Navigate to the Contribution Guide page to see how to contribute.")
         
         with col_btn3:
             difficulty = issue.get('difficulty', 'unknown')
@@ -246,7 +261,7 @@ def get_sample_issues():
             'difficulty': 'easy',
             'ai_score': 8.5,
             'ai_summary': 'Perfect beginner issue involving CSS and JavaScript. Well-documented with clear requirements.',
-            'updated_at': '2024-10-01T10:00:00Z'
+            'updated_at': '2025-10-01T10:00:00Z'
         },
         {
             'id': 2,
@@ -263,7 +278,7 @@ def get_sample_issues():
             'difficulty': 'medium',
             'ai_score': 7.2,
             'ai_summary': 'Intermediate level issue requiring knowledge of authentication patterns and security best practices.',
-            'updated_at': '2024-09-28T15:30:00Z'
+            'updated_at': '2025-09-28T15:30:00Z'
         }
     ]
 

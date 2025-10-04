@@ -1,0 +1,78 @@
+JOHN SMITH
+Senior Full Stack Developer
+Email: john.smith@email.com | Phone: (555) 123-4567
+LinkedIn: linkedin.com/in/johnsmith | GitHub: github.com/johnsmith
+
+PROFESSIONAL SUMMARY
+========================================
+Experienced full-stack developer with 6+ years of expertise in building scalable web applications and leading development teams. Passionate about clean code, performance optimization, and mentoring junior developers. Strong background in React, Node.js, and cloud technologies.
+
+WORK EXPERIENCE
+========================================
+
+Senior Full Stack Developer | TechCorp Inc. | 2020 - Present
+• Led a team of 5 developers in building a React-based e-commerce platform
+• Architected microservices using Node.js, Express, and Docker
+• Implemented CI/CD pipelines using AWS and Kubernetes
+• Reduced application load time by 40% through performance optimization
+• Technologies: React, TypeScript, Node.js, Express, MongoDB, AWS, Docker, Kubernetes
+
+Full Stack Developer | WebSolutions LLC | 2018 - 2020
+• Developed responsive web applications using React and Vue.js
+• Built RESTful APIs with Django and Flask
+• Worked with PostgreSQL and MongoDB databases
+• Implemented automated testing with Jest and Cypress
+• Technologies: React, Vue.js, Python, Django, Flask, PostgreSQL, MongoDB, Git
+
+Junior Developer | StartupXYZ | 2017 - 2018
+• Built frontend components using HTML, CSS, and JavaScript
+• Collaborated on backend development with PHP and Laravel
+• Gained experience with MySQL database design
+• Technologies: HTML, CSS, JavaScript, PHP, Laravel, MySQL
+
+TECHNICAL SKILLS
+========================================
+• Languages: JavaScript, TypeScript, Python, Java, PHP, HTML, CSS
+• Frontend: React, Vue.js, Angular, Redux, Bootstrap, Tailwind, SCSS
+• Backend: Node.js, Express, Django, Flask, Spring Boot, Laravel
+• Databases: MongoDB, PostgreSQL, MySQL, SQLite
+• Cloud & DevOps: AWS, Azure, Docker, Kubernetes, Git, Linux, Bash
+• Tools: GraphQL, REST API, Jest, Cypress
+
+PROJECTS
+========================================
+
+E-Commerce Platform (2021-2022)
+• Built a full-stack e-commerce solution using React and Node.js
+• Integrated payment processing and inventory management
+• Deployed on AWS with Docker containers
+• Technologies: React, Node.js, MongoDB, AWS, Docker
+
+Task Management App (2020)
+• Developed a collaborative task management application
+• Implemented real-time updates using WebSocket
+• Built responsive UI with React and Material-UI
+• Technologies: React, Node.js, Socket.io, PostgreSQL
+
+Open Source Contributions (Ongoing)
+• Active contributor to various open-source projects on GitHub
+• Participated in Hacktoberfest for 3 consecutive years
+• Focused on improving documentation and fixing bugs
+
+EDUCATION
+========================================
+Bachelor of Science in Computer Science
+University of Technology | 2013 - 2017
+
+CERTIFICATIONS
+========================================
+• AWS Certified Solutions Architect (2021)
+• MongoDB Developer Associate (2020)
+
+INTERESTS
+========================================
+• Open source development and community involvement
+• Performance optimization and scalability challenges
+• AI and machine learning applications
+• Cloud architecture and DevOps practices
+• Mentoring and knowledge sharing

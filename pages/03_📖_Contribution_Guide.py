@@ -1,8 +1,17 @@
 import streamlit as st
 from utils.styling import apply_custom_css
+import os
 
 # Apply styling
 apply_custom_css()
+
+# Initialize session state for this page
+if 'profile' not in st.session_state:
+    st.session_state.profile = None
+if 'issues' not in st.session_state:
+    st.session_state.issues = []
+if 'github_token' not in st.session_state:
+    st.session_state.github_token = os.getenv('GITHUB_TOKEN', '')
 
 st.title("📖 Contribution Guide")
 
@@ -42,6 +51,24 @@ def main():
 def display_beginner_guide():
     st.markdown("## 🌱 Beginner's Guide to Open Source")
     
+    # Progress tracker
+    st.markdown("### 🎯 Step-by-Step Process")
+    
+    # Use native Streamlit components instead of complex visualizations
+    progress_steps = [
+        "Fork Repository", "Clone Fork", "Create Branch", 
+        "Make Changes", "Commit Changes", "Push Changes", "Create PR"
+    ]
+    
+    # Show progress as metrics
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("Total Steps", "7", help="Complete process steps")
+    with col2:
+        st.metric("Time Needed", "1-2 hours", help="For first contribution")
+    with col3:
+        st.metric("Difficulty", "⭐⭐", help="Beginner friendly")
+    
     steps = [
         {
             'title': '1. Fork the Repository',
@@ -52,7 +79,8 @@ def display_beginner_guide():
         {
             'title': '2. Clone Your Fork',
             'description': 'Download the repository to your computer',
-            'command': 'git clone https://github.com/YOUR_USERNAME/REPO_NAME.git\ncd REPO_NAME',
+            'command': '''git clone https://github.com/YOUR_USERNAME/REPO_NAME.git
+cd REPO_NAME''',
             'tip': 'Replace YOUR_USERNAME and REPO_NAME with actual values'
         },
         {
@@ -70,7 +98,8 @@ def display_beginner_guide():
         {
             'title': '5. Commit Your Changes',
             'description': 'Save your changes with a clear message',
-            'command': 'git add .\ngit commit -m "Fix: Add description of your fix"',
+            'command': '''git add .
+git commit -m "Fix: Add description of your fix"''',
             'tip': 'Write clear commit messages explaining what you changed'
         },
         {
@@ -87,8 +116,8 @@ def display_beginner_guide():
         }
     ]
     
-    for step in steps:
-        with st.expander(step['title'], expanded=True):
+    for i, step in enumerate(steps):
+        with st.expander(step['title'], expanded=(i == 0)):
             st.write(step['description'])
             if step['command']:
                 st.code(step['command'], language='bash')
@@ -98,7 +127,16 @@ def display_beginner_guide():
 def display_intermediate_guide():
     st.markdown("## 💻 Intermediate Guide")
     
-    tabs = st.tabs(['🔧 Setup', '⚡ Best Practices', '🔍 Review Process'])
+    # Show stats for intermediate contributors
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("Recommended PRs", "2-5", help="Per month for skill building")
+    with col2:
+        st.metric("Success Rate", "85%", help="Typical acceptance rate")
+    with col3:
+        st.metric("Review Time", "3-7 days", help="Average response time")
+    
+    tabs = st.tabs(['🔧 Setup', '⚡ Best Practices', '📝 Review Process'])
     
     with tabs[0]:
         st.markdown("""
@@ -113,14 +151,14 @@ def display_intermediate_guide():
         """)
         
         st.code("""
-        # Install dependencies
-        npm install  # or yarn, pip install -r requirements.txt
-        
-        # Run tests to ensure everything works
-        npm test
-        
-        # Start development server
-        npm run dev
+# Install dependencies
+npm install  # or yarn, pip install -r requirements.txt
+
+# Run tests to ensure everything works
+npm test
+
+# Start development server
+npm run dev
         """, language='bash')
         
         st.markdown("""
@@ -128,8 +166,8 @@ def display_intermediate_guide():
         """)
         
         st.code("""
-        git checkout -b feature/issue-123-description
-        git push -u origin feature/issue-123-description
+git checkout -b feature/issue-123-description
+git push -u origin feature/issue-123-description
         """, language='bash')
     
     with tabs[1]:
@@ -149,6 +187,21 @@ def display_intermediate_guide():
         - Ignore linting errors
         - Force push to shared branches
         """)
+        
+        # Show a checklist
+        st.markdown("#### 📋 Pre-submission Checklist")
+        with st.form("checklist_form"):
+            check1 = st.checkbox("All tests pass locally")
+            check2 = st.checkbox("Code follows project style")
+            check3 = st.checkbox("Documentation updated")
+            check4 = st.checkbox("Commit messages are clear")
+            check5 = st.checkbox("PR description is complete")
+            
+            if st.form_submit_button("✅ Ready to Submit"):
+                if all([check1, check2, check3, check4, check5]):
+                    st.success("🎉 Your PR is ready to submit!")
+                else:
+                    st.warning("⚠️ Please complete all checklist items first")
     
     with tabs[2]:
         st.markdown("""
@@ -172,7 +225,16 @@ def display_intermediate_guide():
 def display_advanced_guide():
     st.markdown("## 🚀 Advanced Contributor Guide")
     
-    tabs = st.tabs(['🏗️ Architecture', '🔄 Complex Changes', '👥 Community'])
+    # Advanced metrics
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("Leadership Level", "Mentor", help="Help guide other contributors")
+    with col2:
+        st.metric("Complex PRs", "5-10", help="Major features per quarter")
+    with col3:
+        st.metric("Review Participation", "Active", help="Review others' PRs")
+    
+    tabs = st.tabs(['🗃️ Architecture', '📄 Complex Changes', '👥 Community'])
     
     with tabs[0]:
         st.markdown("""
@@ -183,6 +245,16 @@ def display_advanced_guide():
         - Review existing tests and documentation
         - Identify areas for improvement
         """)
+        
+        # Architecture analysis checklist
+        with st.expander("📊 Architecture Analysis Checklist"):
+            st.markdown("""
+            - [ ] Understand the main data flow
+            - [ ] Identify key abstractions and interfaces
+            - [ ] Map out dependencies between modules
+            - [ ] Review error handling patterns
+            - [ ] Understand testing strategies
+            """)
     
     with tabs[1]:
         st.markdown("""
@@ -204,6 +276,16 @@ def display_advanced_guide():
         - Consider memory and CPU impact
         - Test with realistic data sets
         """)
+        
+        # Performance tracking
+        with st.expander("⚡ Performance Impact Tracker"):
+            perf_col1, perf_col2 = st.columns(2)
+            with perf_col1:
+                st.metric("Build Time", "Before: 2.3s", delta="After: 2.1s")
+                st.metric("Bundle Size", "Before: 245KB", delta="After: 238KB")
+            with perf_col2:
+                st.metric("Test Suite", "Before: 45s", delta="After: 42s")
+                st.metric("Memory Usage", "Before: 85MB", delta="After: 82MB")
     
     with tabs[2]:
         st.markdown("""
@@ -215,6 +297,16 @@ def display_advanced_guide():
         - Propose and lead initiatives
         - Maintain project standards
         """)
+        
+        # Community impact metrics
+        with st.expander("🌟 Community Impact"):
+            impact_col1, impact_col2 = st.columns(2)
+            with impact_col1:
+                st.metric("PRs Reviewed", "15", help="This month")
+                st.metric("Issues Helped", "8", help="Questions answered")
+            with impact_col2:
+                st.metric("Contributors Mentored", "3", help="New people helped")
+                st.metric("Discussions Led", "5", help="Technical discussions")
 
 def display_resources():
     st.markdown("---")
@@ -240,11 +332,38 @@ def display_resources():
         - [Conventional Commits](https://www.conventionalcommits.org/) - Commit Standards
         """)
     
+    # Quick reference chart using Streamlit native charting
+    st.markdown("### 📊 Contribution Types Overview")
+    
+    contribution_data = {
+        'Type': ['Bug Fix', 'Feature', 'Documentation', 'Tests', 'Refactor'],
+        'Difficulty': [2, 4, 1, 3, 5],
+        'Time (hours)': [1, 8, 0.5, 2, 6]
+    }
+    
+    # Show as a simple bar chart using Streamlit
+    col1, col2 = st.columns(2)
+    with col1:
+        st.bar_chart(
+            data={contribution_data['Type'][i]: contribution_data['Difficulty'][i] 
+                  for i in range(len(contribution_data['Type']))},
+            use_container_width=True
+        )
+        st.caption("Difficulty Level by Contribution Type")
+    
+    with col2:
+        st.bar_chart(
+            data={contribution_data['Type'][i]: contribution_data['Time (hours)'][i] 
+                  for i in range(len(contribution_data['Type']))},
+            use_container_width=True
+        )
+        st.caption("Time Investment by Contribution Type")
+    
     # Troubleshooting section
     with st.expander("🔧 Common Issues & Solutions"):
         st.markdown("""
         **Problem: Fork is out of sync**
-        ```
+        ```bash
         git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPO.git
         git fetch upstream
         git checkout main
@@ -253,20 +372,33 @@ def display_resources():
         ```
         
         **Problem: Merge conflicts**
-        ```
+        ```bash
         # Fix conflicts in your editor
         git add .
         git commit -m "Resolve merge conflicts"
         ```
         
         **Problem: Need to update PR**
-        ```
+        ```bash
         # Make changes, then:
         git add .
         git commit -m "Address review feedback"
         git push origin your-branch-name
         ```
         """)
+    
+    # Success metrics
+    st.markdown("### 🎯 Success Metrics")
+    metrics_col1, metrics_col2, metrics_col3, metrics_col4 = st.columns(4)
+    
+    with metrics_col1:
+        st.metric("PR Acceptance", "95%", delta="↗️ Good practices")
+    with metrics_col2:
+        st.metric("Review Speed", "2 days", delta="↗️ Clear descriptions")
+    with metrics_col3:
+        st.metric("Community Rating", "4.8/5", delta="↗️ Helpful attitude")
+    with metrics_col4:
+        st.metric("Repeat Contributions", "85%", delta="↗️ Positive experience")
 
 if __name__ == "__main__":
     main()

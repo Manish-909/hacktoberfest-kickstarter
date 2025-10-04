@@ -8,7 +8,7 @@ class GitHubService:
         self.base_url = "https://api.github.com"
         self.headers = {
             'Accept': 'application/vnd.github.v3+json',
-            'User-Agent': 'Hacktoberfest-Mentor-2024/1.0'
+            'User-Agent': 'Hacktoberfest-Mentor-2025/1.0'
         }
         
         # Use token from session state if available
@@ -23,7 +23,7 @@ class GitHubService:
     
     def fetch_issues(self, skills: List[str], interests: List[str], 
                     experience_level: str, max_results: int = 20) -> List[Dict]:
-        """Fetch Hacktoberfest 2024 issues based on user criteria"""
+        """Fetch Hacktoberfest 2025 issues based on user criteria"""
         
         try:
             # Build Hacktoberfest-specific search queries
@@ -53,15 +53,15 @@ class GitHubService:
     
     def _build_hacktoberfest_queries(self, skills: List[str], interests: List[str], 
                                    experience_level: str) -> List[str]:
-        """Build Hacktoberfest 2024 specific search queries"""
+        """Build Hacktoberfest 2025 specific search queries"""
         
-        # Base query for Hacktoberfest 2024
+        # Base query for Hacktoberfest 2025
         base_query = 'state:open type:issue archived:false'
         
         # Hacktoberfest labels (both current and historical)
         hacktoberfest_labels = [
             'hacktoberfest',
-            'hacktoberfest2024',
+            'hacktoberfest2025',
             'hacktoberfest-accepted',
             'hacktober',
             'october'
@@ -165,13 +165,13 @@ class GitHubService:
             return []
     
     def _is_hacktoberfest_issue(self, issue: Dict) -> bool:
-        """Check if issue is relevant for Hacktoberfest 2024"""
+        """Check if issue is relevant for Hacktoberfest 2025"""
         
         labels = [label.lower() for label in issue.get('labels', [])]
         
         # Must have at least one Hacktoberfest-related label
         hacktoberfest_keywords = [
-            'hacktoberfest', 'hacktoberfest2024', 'hacktoberfest-accepted',
+            'hacktoberfest', 'hacktoberfest2025', 'hacktoberfest-accepted',
             'hacktober', 'october', 'good first issue', 'help wanted'
         ]
         
@@ -182,7 +182,7 @@ class GitHubService:
         
         # Check if repository name suggests Hacktoberfest participation
         repo_name = issue.get('repository', {}).get('name', '').lower()
-        has_hacktoberfest_repo = any(keyword in repo_name for keyword in ['hacktoberfest', '2024'])
+        has_hacktoberfest_repo = any(keyword in repo_name for keyword in ['hacktoberfest', '2025'])
         
         return has_hacktoberfest_label or has_hacktoberfest_repo
     
@@ -205,7 +205,7 @@ class GitHubService:
             
             # Repository factors
             repo_name = issue.get('repository', {}).get('name', '').lower()
-            if 'hacktoberfest' in repo_name or '2024' in repo_name:
+            if 'hacktoberfest' in repo_name or '2025' in repo_name:
                 score += 7
             
             # Freshness factor (recent issues are better)
@@ -275,8 +275,8 @@ class GitHubService:
     def _check_hacktoberfest_repo(self, repo_name: str, labels: List[str]) -> bool:
         """Check if repository is participating in Hacktoberfest"""
         
-        repo_keywords = ['hacktoberfest', '2024']
-        label_keywords = ['hacktoberfest', 'hacktoberfest2024', 'hacktoberfest-accepted']
+        repo_keywords = ['hacktoberfest', '2025']
+        label_keywords = ['hacktoberfest', 'hacktoberfest2025', 'hacktoberfest-accepted']
         
         repo_match = any(keyword in repo_name.lower() for keyword in repo_keywords)
         label_match = any(keyword in label.lower() for label in labels for keyword in label_keywords)
@@ -292,7 +292,7 @@ class GitHubService:
         # Direct Hacktoberfest labels
         if any('hacktoberfest' in label for label in labels_lower):
             score += 10
-        if 'hacktoberfest2024' in labels_lower:
+        if 'hacktoberfest2025' in labels_lower:
             score += 15
         if 'hacktoberfest-accepted' in labels_lower:
             score += 12
@@ -425,8 +425,8 @@ class GitHubService:
                 'labels': ['hacktoberfest', 'good first issue', 'help wanted', 'frontend', 'css'],
                 'comments': 3,
                 'difficulty': 'easy',
-                'created_at': '2024-10-01T10:00:00Z',
-                'updated_at': '2024-10-03T15:30:00Z',
+                'created_at': '2025-10-01T10:00:00Z',
+                'updated_at': '2025-10-03T15:30:00Z',
                 'assignee': None,
                 'state': 'open',
                 'hacktoberfest_score': 18
@@ -434,7 +434,7 @@ class GitHubService:
             {
                 'id': 2,
                 'number': 456,
-                'title': 'Update documentation for new contributors [Hacktoberfest 2024]',
+                'title': 'Update documentation for new contributors [Hacktoberfest 2025]',
                 'body': 'Help us improve our documentation! We need to update the CONTRIBUTING.md file with clearer instructions for new contributors. Perfect for writers and developers who want to help the community.',
                 'url': 'https://github.com/example/open-source-project/issues/456',
                 'repository': {
@@ -445,11 +445,11 @@ class GitHubService:
                     'stars': 1200,
                     'is_hacktoberfest': True
                 },
-                'labels': ['hacktoberfest2024', 'documentation', 'good first issue', 'help wanted'],
+                'labels': ['hacktoberfest2025', 'documentation', 'good first issue', 'help wanted'],
                 'comments': 5,
                 'difficulty': 'easy',
-                'created_at': '2024-09-28T08:00:00Z',
-                'updated_at': '2024-10-02T12:15:00Z',
+                'created_at': '2025-09-28T08:00:00Z',
+                'updated_at': '2025-10-02T12:15:00Z',
                 'assignee': None,
                 'state': 'open',
                 'hacktoberfest_score': 20
@@ -471,8 +471,8 @@ class GitHubService:
                 'labels': ['hacktoberfest', 'bug', 'python', 'help wanted'],
                 'comments': 8,
                 'difficulty': 'medium',
-                'created_at': '2024-09-25T14:20:00Z',
-                'updated_at': '2024-10-01T09:45:00Z',
+                'created_at': '2025-09-25T14:20:00Z',
+                'updated_at': '2025-10-01T09:45:00Z',
                 'assignee': None,
                 'state': 'open',
                 'hacktoberfest_score': 15
