@@ -10,7 +10,7 @@ import google.generativeai as genai
 class ResumeService:
     """Service for processing resume files and extracting profile information using Gemini AI"""
     
-    def __init__(self, api_key: str = "AIzaSyCZ7sFBZKmuj4Tk4Md7NF-G5W4pI0Hxz7A"):
+    def __init__(self, api_key: str = "api key"):
         genai.configure(api_key=api_key)
         self.model = "models/text-bison-001"
         
